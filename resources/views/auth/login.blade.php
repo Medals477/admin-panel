@@ -15,23 +15,26 @@
                             <p class="mb-0">Please log in to your account</p>
                         </div>
                         <div class="form-body">
-                            <form class="row g-3" action="{{ route('home') }}" method="POST">
+                            <form class="row g-3" action="{{ route('login') }}" method="post">
                                 @csrf
                                 <div class="col-12">
                                     <label for="inputEmailAddress" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control @error('email')is-invalid @enderror" id="inputEmailAddress" placeholder="jhon@example.com">
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="inputEmailAddress" placeholder="jhon@example.com">
                                     @error('email')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputChoosePassword" class="form-label">Password</label>
-                                    <div class="input-group" id="show_hide_password">
-                                        <input type="text" name="password" id="password" class="form-control @error('password')is-invalid @enderror" placeholder="Please enter author name" value="{{ old('password') }}"/>
-                                        @error('password')
-                                            <span class="text-danger" >{{$message}}</span>
-                                        @enderror
-                                    </div>
+                                    <label for="password" class="form-label">Password</label>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="current-password" placeholder="Enter your password here!">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check form-switch">
@@ -46,20 +49,18 @@
                                         <button type="submit" class="btn btn-primary">Sign in</button>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="text-center ">
-                                        <p class="mb-0">Don't have an account yet? <a href="{{ route('register') }}">Sign up here</a>
+                                        <p class="mb-0">Don't have an account yet? <a href="auth-basic-signup.html">Sign up here</a>
                                         </p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--end row-->
 </div>
 @endsection
