@@ -28,6 +28,17 @@
                 <li> <a href="{{ route('category.index') }}"><i class='bx bx-radio-circle'></i>View Category</a></li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-blog"></i>
+                </div>
+                <div class="menu-title">Blogs</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('blog.create') }}"><i class='bx bx-radio-circle'></i>Add Blog</a></li>
+                <li> <a href="{{ route('blog.index') }}"><i class='bx bx-radio-circle'></i>View Blog</a></li>
+            </ul>
+        </li>
     </ul>
     <!--end navigation-->
 </div>

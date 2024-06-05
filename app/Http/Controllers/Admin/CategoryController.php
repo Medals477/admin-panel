@@ -75,7 +75,7 @@ class CategoryController extends Controller
             'slug'       =>  'required|unique:categories,slug,'.$id,
             'status'     =>  'required',
         ]);
-        
+
         $data = $request->all();
         $data['slug'] = Str::slug($request->slug);
         $category->update($data);
@@ -97,6 +97,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        Category::destroy($id);
+
+    return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
     }
 }
