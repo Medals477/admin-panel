@@ -6,6 +6,9 @@
         <div class="col mx-auto">
             <div class="card mb-0">
                 <div class="card-body">
+                    @foreach ($errors->all() as $item)
+                        <span class="text-danger">{{ $item }}</span>
+                    @endforeach
                     <div class="p-4">
                         <div class="mb-3 text-center">
                             <img src="{{ asset('assets/back/images/logo-icon.png') }}" width="60" alt="" />
@@ -15,17 +18,18 @@
                             <p class="mb-0">Please fill the below details to create your account</p>
                         </div>
                         <div class="form-body">
-                            <form class="row g-3">
+                            <form class="row g-3" action="{{ route('register') }}" method="post">
+                                @csrf
                                 <div class="col-12">
                                     <label for="inputUsername" class="form-label">Username</label>
-                                    <input type="email" name="username" class="form-control @error('username')is-invalid @enderror" id="inputUsername" placeholder="Jhon">
-                                    @error('username')
+                                    <input type="text" name="name" class="form-control @error('name')is-invalid @enderror" id="inputUsername" placeholder="Jhon" value="{{ old('name') }}"/>
+                                    @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="col-12">
                                     <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                    <input type="email" name="email" class="form-control @error('email')is-invalid @enderror" id="inputEmailAddress" placeholder="example@user.com">
+                                    <input type="email" name="email" class="form-control @error('email')is-invalid @enderror" id="inputEmailAddress" placeholder="example@user.com" value="{{ old('email') }}">
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -33,11 +37,20 @@
                                 <div class="col-12">
                                     <label for="inputChoosePassword" class="form-label">Password</label>
                                     <div class="input-group" id="show_hide_password">
-                                        <input type="text" name="password" id="password" class="form-control @error('password')is-invalid @enderror" placeholder="Please enter author name" value="{{ old('password') }}"/>
+                                        <input type="text" name="password" id="password" class="form-control @error('password')is-invalid @enderror" placeholder="Please enter author name"/>
                                         @error('password')
                                             <span class="text-danger" >{{$message}}</span>
                                         @enderror
                                     </div>
+                                </div>
+                                {{-- <div class="col-12">
+                                    <label for="confiram_password" class="form-label">Password</label>
+                                    <div class="input-group" id="show_hide_password">
+                                        <input type="text" name="confirmation_password" id="confirmation_password" class="form-control @error('confiram_password')is-invalid @enderror" placeholder="Please enter author name"/>
+                                        @error('confiram_password')
+                                            <span class="text-danger" >{{$message}}</span>
+                                        @enderror
+                                    </div> --}}
                                 </div>
                                 <div class="col-12">
                                     <label for="inputSelectCountry" class="form-label">Country</label>

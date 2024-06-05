@@ -49,12 +49,12 @@
                                         <button type="submit" class="btn btn-primary">Sign in</button>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
+                                <div class="col-12">
                                     <div class="text-center ">
-                                        <p class="mb-0">Don't have an account yet? <a href="auth-basic-signup.html">Sign up here</a>
+                                        <p class="mb-0">Don't have an account yet? <a href="{{ route('login') }}">Sign up here</a>
                                         </p>
                                     </div>
-                                </div> --}}
+                                </div>
                             </form>
                         </div>
                     </div>

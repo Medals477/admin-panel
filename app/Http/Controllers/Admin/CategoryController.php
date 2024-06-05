@@ -75,15 +75,18 @@ class CategoryController extends Controller
             'slug'       =>  'required|unique:categories,slug,'.$id,
             'status'     =>  'required',
         ]);
-
-        $category->name                   =      $request->name;
-        $category->slug                   =      Str::slug($request->slug);
-        $category->status                 =      $request->status;
-        $category->description            =      $request->description;
-        $category->meta_title             =      $request->meta_title;
-        $category->meta_keywords          =      $request->meta_keywords;
-        $category->meta_description       =      $request->meta_description;
-        $category->save();
+        
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->slug);
+        $category->update($data);
+        // $category->name                   =      $request->name;
+        // $category->slug                   =      Str::slug($request->slug);
+        // $category->status                 =      $request->status;
+        // $category->description            =      $request->description;
+        // $category->meta_title             =      $request->meta_title;
+        // $category->meta_keywords          =      $request->meta_keywords;
+        // $category->meta_description       =      $request->meta_description;
+        // $category->save();
 
         return redirect()->back()->with('success', 'Record has been successfully updated!');
 
