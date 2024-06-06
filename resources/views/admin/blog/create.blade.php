@@ -4,7 +4,7 @@
     <div class="page-content">
         <div class="card border-primary border-top border-bottom">
             <div class="card-header">
-                <h4>Create Blogs</h4>
+                <h4>Create Blog</h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('blog.store') }}" method="post">
@@ -44,9 +44,6 @@
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
-                            @error('category_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                         </div>
                         <div class="col-12 mb-3">
                             <label for="description" class="form-label">Description</label>
@@ -60,9 +57,9 @@
                             @enderror
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="meta_keyword" class="form-label">Meta Keywords <span class="text-danger">*</span></label>
-                            <input type="text" name="meta_keyword" id="meta_keyword" class="form-control @error('meta_keyword')is-invalid @enderror" placeholder="Please Enter Meta Keywords" value="{{ old('status') }}">
-                            @error('meta_keyword')
+                            <label for="meta_keywords" class="form-label">Meta Keywords <span class="text-danger">*</span></label>
+                            <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords')is-invalid @enderror" placeholder="Please Enter Meta Keywords" value="{{ old('meta_keywords') }}">
+                            @error('meta_keywords')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->boolean('status');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('image')->nullable();
             $table->string('alt')->nullable();
             $table->string('meta_title', 600);
             $table->string('meta_keywords', 600);
-            $table->string('meta_description', 600)->nullable();
+            $table->longText('meta_description')->nullable();
             $table->timestamps();
         });
     }

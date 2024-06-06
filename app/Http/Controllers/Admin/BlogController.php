@@ -17,6 +17,7 @@ class BlogController extends Controller
     public function index()
     {
         $blog = Blog::all();
+        $category = Category::all();
         return view('admin.blog.index', compact('blog'));
     }
 
@@ -35,17 +36,27 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'           => 'required',
-            'slug'            => 'required|unique:blogs',
-            'status'          => 'required',
-            'categoryid'      => 'required',
-            'meta_title'      => 'required',
-            'meta_keywords'    => 'required',
+             'category_id'     => 'required',
+             'title'           => 'required',
+             'slug'            => 'required|unique:blogs',
+             'status'          => 'required',
+             'meta_title'      => 'required',
+             'meta_keywords'   => 'required',
         ]);
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->slug);
-        Blog::create($data);
-        return redirect(route('category.index'))->with('success', "Blog Successfully Created!");
+           $data = $request->all();
+           $data['slug'] = Str::slug($request->slug);
+           Blog::create($data);
+           return redirect(route('blog.index'))->with('success', "Blog Successfully Created!");
+        // $blog = new Blog();
+        //     $blog->category_id           =   $request->category_id;
+        //     $blog->title                 =   $request->title;
+        //     $blog->slug                  =   Str::slug($request->slug);
+        //     $blog->description           =   $request->description;
+        //     $blog->status                =   $request->status;
+        //     $blog->meta_title            =   $request->meta_title;
+        //     $blog->meta_keywords         =   $request->meta_keywords;
+        //     $blog->meta_description      =   $request->meta_description;
+        // $blog->save();
     }
 
     /**
@@ -61,7 +72,10 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $blog = Blog::find($id);
+        $category = Category::all();
+        return view('admin.blog.edit',['blog'=>$blog,],compact('category'));
     }
 
     /**
@@ -69,7 +83,21 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $blog = Blog::find($id);
+        $request->validate([
+            'category_id'     => 'required',
+            'title'           => 'required',
+            'slug'            => 'required|unique:blogs,slug,'.$id,
+            'status'          => 'required',
+            'meta_title'      => 'required',
+            'meta_keywords'   => 'required',
+       ]);
+          $data = $request->all();
+          $data['slug'] = Str::slug($request->slug);
+          $blog->update($data);
+        return redirect()->back()->with('success', 'Record has been successfully updated!');
+
     }
 
     /**
@@ -77,6 +105,8 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        Blog::destroy($id);
+        return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
     }
 }
