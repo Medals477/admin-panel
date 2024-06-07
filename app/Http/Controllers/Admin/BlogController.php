@@ -16,8 +16,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::all();
-        $category = Category::all();
+        // return $this->getName("Ajeeet");
+        $blog = Blog::latest('id')->get();
         return view('admin.blog.index', compact('blog'));
     }
 
@@ -35,6 +35,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
              'category_id'     => 'required',
              'title'           => 'required',
@@ -108,5 +109,10 @@ class BlogController extends Controller
         $id = Crypt::decrypt($id);
         Blog::destroy($id);
         return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
+    }
+
+    protected function getName($name)
+    {
+        return $name;
     }
 }

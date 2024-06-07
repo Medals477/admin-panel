@@ -3,8 +3,9 @@
 <div class="page-wrapper">
     <div class="page-content">
         <div class="card border-primary border-top border-bottom">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4>Create Blog</h4>
+                <a href="{{ route('blog.index') }}" class="btn btn-primary">View Blogs</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('blog.store') }}" method="post">
@@ -38,12 +39,15 @@
                         </div>
                         <div class="col-6 mb-3">
                             <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
-                            <select name="category_id" id="category_id" class="form-control" aria-label="Default select example">
-                                <option selected>Select Category ID</option>
+                            <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror" aria-label="Default select example">
+                                <option  value="" selected>Select Category ID</option>
                                 @foreach ($category as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ old('category_id') ==  $item->id ? "selected":""}}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12 mb-3">
                             <label for="description" class="form-label">Description</label>

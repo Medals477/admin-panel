@@ -3,14 +3,21 @@
 <div class="page-wrapper">
     <div class="page-content">
         <div class="card border-primary border-top border-bottom">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4>View Blogs</h4>
+                <a href="{{ route('blog.create') }}" class="btn btn-primary">Add Blogs</a>
             </div>
             <div class="card-body">
                 @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissable fade show" role="alert">
                         <strong>{{ Session::get('success') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        <strong>{{ Session::get('error') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 <table class="table table-hover table-striped table-bordered">
@@ -22,9 +29,7 @@
                             <th>Status</th>
                             <th>Category ID</th>
                             <th>Description</th>
-                            <th>Meta Title</th>
-                            <th>Meta Keywords</th>
-                            <th>Meta Description</th>
+                            <th>Created At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -41,11 +46,11 @@
                                     <span class="badge bg-danger f-60">Inactive</span>
                                 @endif
                             </td>
-                            <td>{{ $item->category_id }}</td>
-                            <td>{{ $item->description }}</td>
-                            <td>{{ $item->meta_title }}</td>
-                            <td>{{ $item->meta_keywords }}</td>
-                            <td>{{ $item->meta_description }}</td>
+                            <td>
+                                {{ $item->category->name }}
+                            </td>
+                            <td>{{ Str::limit($item->description , 20) }}</td>
+                            <td>{{ $item->created_at->format('d-M-Y') }}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('blog.edit',Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>

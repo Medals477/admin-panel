@@ -18,4 +18,9 @@ class Category extends Model
         'meta_keywords',
         'meta_description'
     ];
+
+    public function blog()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }

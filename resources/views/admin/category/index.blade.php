@@ -4,13 +4,20 @@
 <div class="page-wrapper">
     <div class="page-content">
         <div class="card border-success border-top border-bottom">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4>Category List</h4>
+                <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
             </div>
             <div class="card-body">
                 @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissable fade show" role="alert">
                         <strong>{{ Session::get('success') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        <strong>{{ Session::get('error') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -22,9 +29,8 @@
                             <th>Slug</th>
                             <th>Status</th>
                             <th>Description</th>
-                            <th>Meta Title</th>
-                            <th>Meta Keywords</th>
-                            <th>Meta Description</th>
+                            <th>Created_At</th>
+                            <th>Blog Count</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -41,17 +47,22 @@
                                 <span class="badge bg-danger f-6">Inactive</span>
                             @endif
                             </td>
-                            <td>{{ $item->description }}</td>
-                            <td>{{ $item->meta_title }}</td>
-                            <td>{{ $item->meta_keywords}}</td>
-                            <td>{{ $item->meta_description }}</td>
+                            <td>{{ Str::limit($item->description, 50) }}</td>
+                            <td>{{ $item->created_at->format('d-M-Y') }}</td>
+                            <td>{{ $item->blog->count() }}</td>
+                            {{-- <td>
+                                @foreach ($item->blog as $list)
+                                    <b>{{ $list->title }}</b>
+                                    <br/>
+                                @endforeach
+                            </td> --}}
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('category.edit', Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>
                                     <form action="{{ route('category.destroy', Crypt::encrypt($item->id)) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger">Delete</button>
+                                        <button class="btn btn-danger rounded-0 rounded-end">Delete</button>
                                     </form>
                                 </div>
                             </td>

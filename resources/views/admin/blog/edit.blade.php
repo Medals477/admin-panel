@@ -3,8 +3,9 @@
 <div class="page-wrapper">
     <div class="page-content">
         <div class="card border-primary border-top border-bottom">
-            <div class="card-header">
-                <h4>Create Blog</h4>
+            <div class="card-header d-flex justify-content-between">
+                <h4>Edit Blog</h4>
+                <a href="{{ route('blog.index') }}" class="btn btn-primary">View Records</a>
             </div>
             <div class="card-body">
                 @if (Session::has('success'))
@@ -48,7 +49,7 @@
                             <select name="category_id" id="category_id" class="form-control" aria-label="Default select example" value="{{ old('category_id',$blog->category_id) }}">
                                 <option selected>Select Category ID</option>
                                 @foreach ($category as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}" {{ old('category_id',$blog->category_id) == $item->id ? "selected":"" }}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
                         </div>

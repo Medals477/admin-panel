@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('meta_title', 600);
             $table->string('meta_keywords', 600);
             $table->longText('meta_description')->nullable();
+            $table->foreign('category_id')->on('categories')->references('id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

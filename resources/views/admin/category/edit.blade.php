@@ -5,6 +5,7 @@
             <div class="card border-success border-top border-bottom">
                 <div class="d-flex justify-content-between card-header">
                     <h4>Edit Category</h4>
+                    <a href="{{ route('blog.index') }}" class="btn btn-primary">View Blogs</a>
                 </div>
                 <div class="card-body">
                     @if (Session::has('success'))

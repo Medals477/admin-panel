@@ -3,6 +3,10 @@
     <div class="page-wrapper">
         <div class="page-content">
             <div class="card border-success border-top border-bottom">
+                <div class="card-header d-flex justify-content-between">
+                    <h4>Create Category</h4>
+                    <a href="{{ route('category.index') }}" class="btn btn-primary">View Category</a>
+                </div>
                 <div class="card-body">
                     <form action="{{ route('category.store') }}" method="post">
                         @csrf

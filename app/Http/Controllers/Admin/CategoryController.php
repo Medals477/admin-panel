@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
+        $category = Category::with('blog')->get();
         return view('admin.category.index', compact('category'));
     }
 
@@ -100,6 +100,6 @@ class CategoryController extends Controller
         $id = Crypt::decrypt($id);
         Category::destroy($id);
 
-    return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
+    return redirect()->back()->with('error', 'Record Has Been Deleted Successfully!');
     }
 }
