@@ -27,7 +27,8 @@
                             <th>Title</th>
                             <th>Slug</th>
                             <th>Status</th>
-                            <th>Category ID</th>
+                            <th>Category Name</th>
+                            <th>Image</th>
                             <th>Description</th>
                             <th>Created At</th>
                             <th>Action</th>
@@ -49,6 +50,11 @@
                             <td>
                                 {{ $item->category->name }}
                             </td>
+                            <td>
+                                <div style="width: 200px">
+                                    <img src="{{ asset($item->image) }}" alt="" width="100%"/>
+                                </div>
+                            </td>
                             <td>{{ Str::limit($item->description , 20) }}</td>
                             <td>{{ $item->created_at->format('d-M-Y') }}</td>
                             <td>
@@ -65,6 +71,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div>
+                    {{ $blog->links() }}
+                </div>
             </div>
         </div>
     </div>

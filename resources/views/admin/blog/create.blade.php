@@ -8,7 +8,7 @@
                 <a href="{{ route('blog.index') }}" class="btn btn-primary">View Blogs</a>
             </div>
             <div class="card-body">
-                <form action="{{ route('blog.store') }}" method="post">
+                <form action="{{ route('blog.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-6 mb-3">
@@ -46,6 +46,14 @@
                                 @endforeach
                             </select>
                             @error('category_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="image" for="image">Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror"/>
+                            @error('image')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

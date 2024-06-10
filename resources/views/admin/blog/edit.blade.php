@@ -14,7 +14,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <form action="{{ route('blog.update',Crypt::encrypt($blog->id)) }}" method="post">
+                <form action="{{ route('blog.update',Crypt::encrypt($blog->id)) }}" method="post" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
                     <div class="row">
@@ -52,6 +52,14 @@
                                 <option value="{{ $item->id }}" {{ old('category_id',$blog->category_id) == $item->id ? "selected":"" }}>{{ $item->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <img src="{{ asset($blog->image) }}" alt="" width="100%" class="img-fluid rounded">
+                            <label for="image" for="image">Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror"/>
+                            @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12 mb-3">
                             <label for="description" class="form-label">Description</label>

@@ -8,6 +8,7 @@ use App\Models\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BlogController extends Controller
 {
@@ -17,7 +18,7 @@ class BlogController extends Controller
     public function index()
     {
         // return $this->getName("Ajeeet");
-        $blog = Blog::latest('id')->get();
+        $blog = Blog::latest('id')->paginate(50);
         return view('admin.blog.index', compact('blog'));
     }
 
@@ -37,27 +38,25 @@ class BlogController extends Controller
     {
         // return $request;
         $request->validate([
-             'category_id'     => 'required',
-             'title'           => 'required',
-             'slug'            => 'required|unique:blogs',
-             'status'          => 'required',
-             'meta_title'      => 'required',
-             'meta_keywords'   => 'required',
+            'category_id'     => 'required',
+            'title'           => 'required',
+            'slug'            => 'required|unique:blogs',
+            'image'           => 'required|mimes:jpg,png,webp,svg|max:1024',
+            'status'          => 'required',
+            'meta_title'      => 'required',
+            'meta_keywords'   => 'required',
         ]);
            $data = $request->all();
            $data['slug'] = Str::slug($request->slug);
+           if($request->has('image')){
+            $image = $request->image->getClientOriginalName();
+            $imageName = uniqid().$image;
+            $imagePath = '/upload/blog/'; 
+            $request->image->move(public_path($imagePath), $imageName);
+            $data['image'] =$imagePath.$imageName;
+           }
            Blog::create($data);
            return redirect(route('blog.index'))->with('success', "Blog Successfully Created!");
-        // $blog = new Blog();
-        //     $blog->category_id           =   $request->category_id;
-        //     $blog->title                 =   $request->title;
-        //     $blog->slug                  =   Str::slug($request->slug);
-        //     $blog->description           =   $request->description;
-        //     $blog->status                =   $request->status;
-        //     $blog->meta_title            =   $request->meta_title;
-        //     $blog->meta_keywords         =   $request->meta_keywords;
-        //     $blog->meta_description      =   $request->meta_description;
-        // $blog->save();
     }
 
     /**
@@ -94,8 +93,20 @@ class BlogController extends Controller
             'meta_title'      => 'required',
             'meta_keywords'   => 'required',
        ]);
-          $data = $request->all();
-          $data['slug'] = Str::slug($request->slug);
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->slug);
+        if($request->has('image')){
+            $image = $request->file('image')->getClientOriginalName();
+            $imageName = uniqid().$image;
+            $imagePath = '/upload/blog/'; 
+            $request->image->move(public_path($imagePath), $imageName);
+            $data['image'] =$imagePath.$imageName;
+            if(File::exists(public_path($blog->image))){
+                File::delete(public_path($blog->image));
+            }
+        }else{
+            $data['image'] = $blog->image;
+        }
           $blog->update($data);
         return redirect()->back()->with('success', 'Record has been successfully updated!');
 
@@ -107,6 +118,10 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $id = Crypt::decrypt($id);
+        $blog = Blog::findOrFail($id);
+        if(File::exists(public_path($blog->image))){
+            File::delete(public_path($blog->image));
+        }
         Blog::destroy($id);
         return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
     }
@@ -114,5 +129,15 @@ class BlogController extends Controller
     protected function getName($name)
     {
         return $name;
+    }
+
+    public function getAjax()
+    {
+        return view('admin.ajax.index');
+    }
+
+    public function setAjax(Request $request)
+    {
+        return response()->json($request->all());
     }
 }

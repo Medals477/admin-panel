@@ -54,5 +54,32 @@
 	<script src="{{ asset('assets/back/js/index.js') }}"></script>
 	<!--app JS-->
 	<script src="{{ asset('assets/back/js/app.js') }}"></script>
+	<script>
+		const BASE_URL = 'http://localhost:8000/'
+		const submitBtn = document.querySelector("#submitBtn");
+		submitBtn.addEventListener('click', function(e){
+			const title = document.querySelector("input[name='title']");
+			const slug = document.querySelector("input[name='slug']");
+			ajaxRequest(BASE_URL+'ajax', 'post', {title, slug})
+			.then(response => {
+				console.log(response)
+			})
+			// .then(data => {
+			// 	console.log(data);
+			// })
+			.catch(error => {
+				console.log(error);
+			})
+		})
+
+		function ajaxRequest(url, method="post", data:{}){
+			console.log(data);
+			return 
+			return fetch(url, {
+				'Content-Type':"application/json",
+				'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
+			}, body: JSON.stringify(data));
+		}
+	</script>
 </body>
 </html>

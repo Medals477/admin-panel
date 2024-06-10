@@ -14,6 +14,7 @@ class Blog extends Model
         'title',
         'slug',
         'status',
+        'image',
         'description',
         'meta_title',
         'meta_keywords',
