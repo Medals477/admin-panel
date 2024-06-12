@@ -25,6 +25,48 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                         </div>
+                        <div class="col-6 mb-3">
+                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                            <div class="">
+                                <input type="radio" name="status" id="active" class="btn-check" value="1" {{ old('status') == 1 ? "checked":"" }}>
+                                <label class="btn btn-outline-success" for="active">Active</label>
+                                <input type="radio" name="status" id="inactive" class="btn-check" value="2" {{ old('status') == 2 ? "checked":"" }}>
+                                <label for="inactive" class="btn btn-outline-danger">Inactive</label>
+                            </div>
+                            @error('status')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
+                            <select name="category_id" id="category_id" class="form-control" aria-label="Default select example" value="{{ old('category_id') }}">
+                                <option selected>Select Category ID</option>
+                                @foreach ($category as $item)
+                                <option value="{{ $item->id }}" {{ old('category_id') == $item->id ? "selected":"" }}>{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea name="description" class="form-control @error('description') is-inavalid @enderror" id="description" cols="10" rows="10" placeholder="Please Enter Description"></textarea>
+                            @error('description')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="meta_title" class="form-label">Meta Title</label>
+                            <input type="text" class="form-control @error('meta_title') is-invalid @enderror" name="meta_title" id="meta_title" placeholder="Please Enter Meta Title">
+                            @error('meta_title')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                            <input type="text" name="meta_keywords" id="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" placeholder="Please Enter Meta Keywords">
+                            @error('meta_keywords')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div>
                             <button id="submitBtn" type="button" class="btn btn-success">Submit</button>
                         </div>

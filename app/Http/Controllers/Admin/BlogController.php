@@ -133,11 +133,19 @@ class BlogController extends Controller
 
     public function getAjax()
     {
-        return view('admin.ajax.index');
+        $category = Category::all();
+        return view('admin.ajax.index', compact('category'));
     }
 
     public function setAjax(Request $request)
     {
-        return response()->json($request->all());
+        $blog = new Blog();
+        $blog->category_id = 3;
+        $blog->status = 1;
+        $blog->title = $request->title;
+        $blog->slug = Str::slug($request->slug);
+        $blog->save();
+
+        return response()->json(['success' => true , 'message' => "Blog successfully created!"]);
     }
 }

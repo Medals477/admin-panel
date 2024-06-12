@@ -58,27 +58,30 @@
 		const BASE_URL = 'http://localhost:8000/'
 		const submitBtn = document.querySelector("#submitBtn");
 		submitBtn.addEventListener('click', function(e){
-			const title = document.querySelector("input[name='title']");
-			const slug = document.querySelector("input[name='slug']");
-			ajaxRequest(BASE_URL+'ajax', 'post', {title, slug})
+			const title = document.querySelector("input[name='title']").value;
+			const slug = document.querySelector("input[name='slug']").value;
+			// console.log(e);
+			ajaxRequest(BASE_URL+'admin/ajax', 'post', {title, slug})
 			.then(response => {
-				console.log(response)
+				return response.json();
 			})
-			// .then(data => {
-			// 	console.log(data);
-			// })
+			.then(data => {
+				console.log(data);
+			})
 			.catch(error => {
 				console.log(error);
 			})
 		})
 
-		function ajaxRequest(url, method="post", data:{}){
-			console.log(data);
-			return 
+		function ajaxRequest(url, method="post", data={}){
 			return fetch(url, {
-				'Content-Type':"application/json",
-				'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
-			}, body: JSON.stringify(data));
+				method:method,
+				headers:{
+					'Content-Type':"application/json",
+					'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
+				},
+				body: JSON.stringify(data)
+			});
 		}
 	</script>
 </body>
