@@ -55,34 +55,40 @@
 	<!--app JS-->
 	<script src="{{ asset('assets/back/js/app.js') }}"></script>
 	<script>
-		const BASE_URL = 'http://localhost:8000/'
-		const submitBtn = document.querySelector("#submitBtn");
-		submitBtn.addEventListener('click', function(e){
-			const title = document.querySelector("input[name='title']").value;
-			const slug = document.querySelector("input[name='slug']").value;
-			// console.log(e);
-			ajaxRequest(BASE_URL+'admin/ajax', 'post', {title, slug})
-			.then(response => {
-				return response.json();
-			})
-			.then(data => {
-				console.log(data);
-			})
-			.catch(error => {
-				console.log(error);
-			})
-		})
+        const BASE_URL = 'http://localhost:8000/';
+        const submitBtn = document.querySelector("#submitBtn");
+        submitBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            const title = document.querySelector("input[name='title']").value;
+            const slug = document.querySelector("input[name='slug']").value;
+            const status = document.querySelector("input[type='radio']:checked").value; // corrected to get the value of the checked radio button
+            const categoryid = document.querySelector("select").value; // corrected to get the value of the selected option
+            const description = document.querySelector("#textarea").value;
+            const meta_title = document.querySelector("input[name='meta_title']").value;
+            const meta_keywords = document.querySelector("input[name='meta_keywords']").value;
+            const meta_description = document.querySelector("textarea[name='meta_description']").value; // corrected to target textarea by name
+            ajaxRequest(BASE_URL+'admin/ajax', 'post', {title, slug, status, categoryid, description, meta_title, meta_keywords, meta_description})
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
 
-		function ajaxRequest(url, method="post", data={}){
-			return fetch(url, {
-				method:method,
-				headers:{
-					'Content-Type':"application/json",
-					'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
-				},
-				body: JSON.stringify(data)
-			});
-		}
-	</script>
+        function ajaxRequest(url, method="post", data={}){
+            return fetch(url, {
+                method: method,
+                headers:{
+                    'Content-Type':"application/json",
+                    'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
+                },
+                body: JSON.stringify(data)
+            });
+        }
+    </script>
 </body>
 </html>
