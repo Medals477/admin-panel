@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="{{ asset('assets/back/css/dark-theme.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/semi-dark.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/header-colors.css') }}"/>
+	@section('css')
+		
+	@show
 <body>
     <div id="app">
         <main class="py-4">
@@ -60,8 +63,15 @@
 		submitBtn.addEventListener('click', function(e){
 			const title = document.querySelector("input[name='title']").value;
 			const slug = document.querySelector("input[name='slug']").value;
-			// console.log(e);
-			ajaxRequest(BASE_URL+'admin/ajax', 'post', {title, slug})
+			const status = document.querySelector("input[name='status']:checked").value;
+			const categoryid = document.querySelector("#category_id").value;
+			const data = {
+				title,
+				slug,
+				status,
+				categoryid,
+			}
+			ajaxRequest(BASE_URL+'admin/ajax', 'post', data)
 			.then(response => {
 				return response.json();
 			})
@@ -71,7 +81,21 @@
 			.catch(error => {
 				console.log(error);
 			})
-		})
+		});
+
+		function deleteBlog(e){
+			ajaxRequest(BASE_URL+'admin/ajax/delete', 'delete', {id:e})
+			.then(response => {
+				return response.json();
+			})
+			.then(success => {
+				console.log(success);
+				window.location.reload();
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		}
 
 		function ajaxRequest(url, method="post", data={}){
 			return fetch(url, {
@@ -84,5 +108,8 @@
 			});
 		}
 	</script>
+	@section('js')
+		
+	@show
 </body>
 </html>

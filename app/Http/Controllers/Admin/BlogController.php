@@ -134,18 +134,39 @@ class BlogController extends Controller
     public function getAjax()
     {
         $category = Category::all();
-        return view('admin.ajax.index', compact('category'));
+        return view('admin.ajax.create', compact('category'));
     }
 
     public function setAjax(Request $request)
     {
         $blog = new Blog();
-        $blog->category_id = 3;
-        $blog->status = 1;
         $blog->title = $request->title;
+        $blog->status = $request->status;
+        $blog->category_id = $request->categoryid;
         $blog->slug = Str::slug($request->slug);
         $blog->save();
 
         return response()->json(['success' => true , 'message' => "Blog successfully created!"]);
+    }
+
+    public function getDelete()
+    {
+        $blogs = Blog::all();
+        return view('admin.ajax.index', ['blogs' => $blogs]);
+    }
+
+    public function deleteAjax(Request $request)
+    {
+        Blog::destroy($request->id);
+        return response()->json(['success' => true, 'message' => "You have successfully deleted!"]);
+    }
+
+    public function search(Request  $request)
+    {
+        $search = $request->search;
+        $blogs = Blog::where('title' , 'LIKE', "%$search%")
+                    ->orWhere('slug', "LIKE", "%$search%")
+                ->get();
+        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
     }
 }

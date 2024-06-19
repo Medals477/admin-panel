@@ -5,6 +5,12 @@
         <div class="card border-primary border-top border-bottom">
             <div class="card-header d-flex justify-content-between">
                 <h4>View Blogs</h4>
+                <form action="{{ route('blog.search') }}">
+                    <div class="btn-group">
+                        <input type="search" name="search" class="form-control" placeholder="Search anything here!">
+                        <button class="btn btn-info"><i data-feather="search"></i>Search</button>
+                    </div>
+                </form>
                 <a href="{{ route('blog.create') }}" class="btn btn-primary">Add Blogs</a>
             </div>
             <div class="card-body">
