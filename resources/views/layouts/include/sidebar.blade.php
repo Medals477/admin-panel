@@ -43,6 +43,7 @@
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
+<<<<<<< HEAD
                 <div class="menu-title">Ajax Blogs</div>
             </a>
             <ul>
@@ -61,6 +62,15 @@
                 <li> <a href="{{ route('media.index') }}"><i class='bx bx-radio-circle'></i>View Media</a></li>
             </ul>
         </li>
+=======
+                <div class="menu-title">Ajax</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('blog.ajax') }}"><i class='bx bx-radio-circle'></i>Add Blog</a></li>
+                {{-- <li> <a href="{{ route('blog.index') }}"><i class='bx bx-radio-circle'></i>View Blog</a></li> --}}
+            </ul>
+        </li>
+>>>>>>> 24a356055d79600d855fb1edc4428ac474f91f40
     </ul>
     <!--end navigation-->
 </div>
