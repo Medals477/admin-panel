@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 @extends('layouts.admin')
 @section('content')
 <div class="page-wrapper">

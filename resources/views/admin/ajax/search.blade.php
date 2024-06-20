@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 @extends('layouts.admin')
 @section('content')
 <div class="page-wrapper">
@@ -9,15 +5,12 @@
         <div class="card border-primary border-top border-bottom">
             <div class="card-header d-flex justify-content-between">
                 <h4>View Blogs</h4>
-<<<<<<< HEAD
-=======
                 <form action="{{ route('blog.search') }}">
                     <div class="btn-group">
-                        <input type="search" name="search" class="form-control" placeholder="Search anything here!">
+                        <input type="search" name="search" class="form-control" placeholder="Search anything here!" value="{{ $search }}">
                         <button class="btn btn-info"><i data-feather="search"></i>Search</button>
                     </div>
                 </form>
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
                 <a href="{{ route('blog.create') }}" class="btn btn-primary">Add Blogs</a>
             </div>
             <div class="card-body">
@@ -48,7 +41,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($blog as $key => $item)
+                        @foreach ($blogs as $key => $item)
                         <tr>
                             <td>{{ $key +1 }}</td>
                             <td>{{ $item->title }}</td>
@@ -84,9 +77,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div>
-                    {{ $blog->links() }}
-                </div>
             </div>
         </div>
     </div>

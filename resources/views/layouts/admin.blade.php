@@ -27,6 +27,12 @@
 	<link rel="stylesheet" href="{{ asset('assets/back/css/dark-theme.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/semi-dark.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/header-colors.css') }}"/>
+<<<<<<< HEAD
+=======
+	@section('css')
+		
+	@show
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 <body>
     <div id="app">
         <main class="py-4">
@@ -54,5 +60,100 @@
 	<script src="{{ asset('assets/back/js/index.js') }}"></script>
 	<!--app JS-->
 	<script src="{{ asset('assets/back/js/app.js') }}"></script>
+<<<<<<< HEAD
+=======
+	<script>
+<<<<<<< HEAD
+		const BASE_URL = 'http://localhost:8000/'
+		const submitBtn = document.querySelector("#submitBtn");
+		submitBtn.addEventListener('click', function(e){
+			const title = document.querySelector("input[name='title']").value;
+			const slug = document.querySelector("input[name='slug']").value;
+			const status = document.querySelector("input[name='status']:checked").value;
+			const categoryid = document.querySelector("#category_id").value;
+			const data = {
+				title,
+				slug,
+				status,
+				categoryid,
+			}
+			ajaxRequest(BASE_URL+'admin/ajax', 'post', data)
+			.then(response => {
+				return response.json();
+			})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		});
+
+		function deleteBlog(e){
+			ajaxRequest(BASE_URL+'admin/ajax/delete', 'delete', {id:e})
+			.then(response => {
+				return response.json();
+			})
+			.then(success => {
+				console.log(success);
+				window.location.reload();
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		}
+
+		function ajaxRequest(url, method="post", data={}){
+			return fetch(url, {
+				method:method,
+				headers:{
+					'Content-Type':"application/json",
+					'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
+				},
+				body: JSON.stringify(data)
+			});
+		}
+	</script>
+	@section('js')
+		
+	@show
+=======
+        const BASE_URL = 'http://localhost:8000/';
+        const submitBtn = document.querySelector("#submitBtn");
+        submitBtn.addEventListener('click', function(e){
+            e.preventDefault();
+            const title = document.querySelector("input[name='title']").value;
+            const slug = document.querySelector("input[name='slug']").value;
+            const status = document.querySelector("input[type='radio']:checked").value; // corrected to get the value of the checked radio button
+            const categoryid = document.querySelector("select").value; // corrected to get the value of the selected option
+            const description = document.querySelector("#textarea").value;
+            const meta_title = document.querySelector("input[name='meta_title']").value;
+            const meta_keywords = document.querySelector("input[name='meta_keywords']").value;
+            const meta_description = document.querySelector("textarea[name='meta_description']").value; // corrected to target textarea by name
+            ajaxRequest(BASE_URL+'admin/ajax', 'post', {title, slug, status, categoryid, description, meta_title, meta_keywords, meta_description})
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        });
+
+        function ajaxRequest(url, method="post", data={}){
+            return fetch(url, {
+                method: method,
+                headers:{
+                    'Content-Type':"application/json",
+                    'X-CSRF-TOKEN':document.querySelector("meta[name='csrf-token']").getAttribute("content")
+                },
+                body: JSON.stringify(data)
+            });
+        }
+    </script>
+>>>>>>> 24a356055d79600d855fb1edc4428ac474f91f40
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 </body>
 </html>

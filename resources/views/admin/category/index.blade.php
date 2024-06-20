@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('content')
+<<<<<<< HEAD
+=======
+
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 <div class="page-wrapper">
     <div class="page-content">
         <div class="card border-success border-top border-bottom">
@@ -49,6 +53,15 @@
                             <td>{{ Str::limit($item->description, 50) }}</td>
                             <td>{{ $item->created_at->format('d-M-Y') }}</td>
                             <td>{{ $item->blog->count() }}</td>
+<<<<<<< HEAD
+=======
+                            {{-- <td>
+                                @foreach ($item->blog as $list)
+                                    <b>{{ $list->title }}</b>
+                                    <br/>
+                                @endforeach
+                            </td> --}}
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
                             <td>
                                 <div class="btn-group">
                                     <a href="{{ route('category.edit', Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>
@@ -68,4 +81,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
 @endsection
