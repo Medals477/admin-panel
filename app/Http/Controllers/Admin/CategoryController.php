@@ -90,4 +90,13 @@ class CategoryController extends Controller
 
     return redirect()->back()->with('error', 'Record Has Been Deleted Successfully!');
     }
+
+    public function search(Request  $request)
+    {
+        $search = $request->search;
+        $blogs = Category::where('title' , 'LIKE', "%$search%")
+                    ->orWhere('slug', "LIKE", "%$search%")
+                ->get();
+        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+    }
 }

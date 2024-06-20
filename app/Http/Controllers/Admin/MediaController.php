@@ -94,4 +94,13 @@ class MediaController extends Controller
     {
         //
     }
+
+    public function search(Request  $request)
+    {
+        $search = $request->search;
+        $blogs = Media::where('title' , 'LIKE', "%$search%")
+                    ->orWhere('slug', "LIKE", "%$search%")
+                ->get();
+        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+    }
 }

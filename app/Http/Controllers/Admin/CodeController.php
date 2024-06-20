@@ -85,4 +85,13 @@ class CodeController extends Controller
         Code::destroy($id);
         return redirect()->back()->with('error',"Code Has Been Succesfully Deleted");
     }
+
+    public function search(Request  $request)
+    {
+        $search = $request->search;
+        $blogs = Code::where('title' , 'LIKE', "%$search%")
+                    ->orWhere('slug', "LIKE", "%$search%")
+                ->get();
+        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+    }
 }

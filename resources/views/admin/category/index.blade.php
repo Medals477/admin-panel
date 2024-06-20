@@ -5,6 +5,12 @@
         <div class="card border-success border-top border-bottom">
             <div class="card-header d-flex justify-content-between">
                 <h4>Category List</h4>
+                <form action="{{ route('category.search') }}">
+                    <div class="btn-group">
+                        <input type="search" name="search" class="form-control" placeholder="Search anything here!">
+                        <button class="btn btn-info"><i data-feather="search"></i>Search</button>
+                    </div>
+                </form>
                 <a href="{{ route('category.create') }}" class="btn btn-primary">Add Category</a>
             </div>
             <div class="card-body">
