@@ -4,16 +4,6 @@
     <div class="page-content">
         <div class="card border-primary border-top border-bottom">
             <div class="card-header d-flex justify-content-between">
-<<<<<<< HEAD
-                <h4>View Blogs</h4>
-                <a href="{{ route('blog.create') }}" class="btn btn-primary">Add Blogs</a>
-            </div>
-            <div class="card-body">
-                @if (Session::has('success'))
-                    <div class="alert alert-success alert-dismissable fade show" role="alert">
-                        <strong>{{ Session::get('success') }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-=======
                 <h4>Create Blog Ajax</h4>
                 <a href="{{ route('blog.index') }}" class="btn btn-primary">View Blogs Ajax</a>
             </div>
@@ -87,7 +77,6 @@
                         <div>
                             <button id="submitBtn" type="button" class="btn btn-success">Submit</button>
                         </div>
->>>>>>> 24a356055d79600d855fb1edc4428ac474f91f40
                     </div>
                 @endif
                 @if (Session::has('error'))

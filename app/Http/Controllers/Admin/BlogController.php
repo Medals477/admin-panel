@@ -17,10 +17,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-=======
         // return $this->getName("Ajeeet");
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
         $blog = Blog::latest('id')->paginate(50);
         return view('admin.blog.index', compact('blog'));
     }
@@ -31,11 +28,7 @@ class BlogController extends Controller
     public function create()
     {
         $category = Category::all();
-<<<<<<< HEAD
-        return view('admin.blog.create',compact('category'));
-=======
         return view('admin.blog.create', compact('category'));
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
     }
 
     /**
@@ -43,26 +36,6 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        $request->validate([
-            'category_id'        =>  'required',
-            'title'              =>  'required',
-            'slug'               =>  'required|unique:blogs',
-            'status'             =>  'required',
-        ]);
-
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->slug);
-        if($request->has('image')){
-            $image = $request->image->getClientOriginalName();
-            $imageName = uniqid().$image;
-            $imagePath = '/upload/blog/';
-            $request->image->move(public_path($imagePath), $imageName);
-            $data['image'] = $imagePath.$imageName;
-        }
-        Blog::create($data);
-        return redirect(route('blog.index'))->with('success', "Blog Successfully Created");
-=======
         // return $request;
         $request->validate([
             'category_id'     => 'required',
@@ -78,13 +51,12 @@ class BlogController extends Controller
            if($request->has('image')){
             $image = $request->image->getClientOriginalName();
             $imageName = uniqid().$image;
-            $imagePath = '/upload/blog/'; 
+            $imagePath = '/upload/blog/';
             $request->image->move(public_path($imagePath), $imageName);
             $data['image'] =$imagePath.$imageName;
            }
            Blog::create($data);
            return redirect(route('blog.index'))->with('success', "Blog Successfully Created!");
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
     }
 
     /**
@@ -103,11 +75,7 @@ class BlogController extends Controller
         $id = Crypt::decrypt($id);
         $blog = Blog::find($id);
         $category = Category::all();
-<<<<<<< HEAD
         return view('admin.blog.edit',['category' => $category , 'blog' => $blog ]);
-=======
-        return view('admin.blog.edit',['blog'=>$blog,],compact('category'));
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
     }
 
     /**
@@ -118,14 +86,6 @@ class BlogController extends Controller
         $id = Crypt::decrypt($id);
         $blog = Blog::find($id);
         $request->validate([
-<<<<<<< HEAD
-            'category_id'      =>   'required',
-            'title'            =>   'required',
-            'slug'             =>   'required|unique:blogs,slug,'.$id,
-            'status'           =>   'required',
-        ]);
-
-=======
             'category_id'     => 'required',
             'title'           => 'required',
             'slug'            => 'required|unique:blogs,slug,'.$id,
@@ -133,17 +93,12 @@ class BlogController extends Controller
             'meta_title'      => 'required',
             'meta_keywords'   => 'required',
        ]);
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
         $data = $request->all();
         $data['slug'] = Str::slug($request->slug);
         if($request->has('image')){
             $image = $request->file('image')->getClientOriginalName();
             $imageName = uniqid().$image;
-<<<<<<< HEAD
             $imagePath = '/upload/blog/';
-=======
-            $imagePath = '/upload/blog/'; 
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
             $request->image->move(public_path($imagePath), $imageName);
             $data['image'] =$imagePath.$imageName;
             if(File::exists(public_path($blog->image))){
@@ -163,18 +118,11 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         $id = Crypt::decrypt($id);
-<<<<<<< HEAD
-        $blog = Blog::findorFail($id);
-=======
         $blog = Blog::findOrFail($id);
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
         if(File::exists(public_path($blog->image))){
             File::delete(public_path($blog->image));
         }
         Blog::destroy($id);
-<<<<<<< HEAD
-        return redirect()->back()->with('error', "Blog Has Been Deleted Successfully");
-=======
         return redirect()->back()->with('success', 'Record Has Been Deleted Successfully!');
     }
 
@@ -220,6 +168,5 @@ class BlogController extends Controller
                     ->orWhere('slug', "LIKE", "%$search%")
                 ->get();
         return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
->>>>>>> 531c3e6a7b3b5f02bc6000927e8f4562dc2afd3d
     }
 }
