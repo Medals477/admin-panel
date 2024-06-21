@@ -2,16 +2,10 @@
 @section('content')
     <div class="page-wrapper">
         <div class="page-content">
-            <div class="card border border-success border-top border-bottom">
+            <div class="card border border-success border-top bottom">
                 <div class="card-header d-flex justify-content-between">
-                    <h4>Media List</h4>
-                    <form action="{{ route('media.search') }}">
-                        <div class="btn-group">
-                            <input type="search" name="search" class="form-control" placeholder="Search anything here!">
-                            <button class="btn btn-info"><i data-feather="search"></i>Search</button>
-                        </div>
-                    </form>
-                    <a href="{{ route('media.create') }}" class="btn btn-primary">Add Media</a>
+                    <h4>Multiple Media List</h4>
+                    <a href="{{ route('media.dynamic') }}" class="btn btn-primary">View Records</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-fade table-hover">
@@ -19,7 +13,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Image</th>
-                                <th>Alt</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -29,18 +22,16 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>
                                     <div style="width: 200px">
-                                        <img src="{{ asset($item->image) }}" alt="" width="100%">
+                                        <img src="{{ $item->$image }}" alt="" width="100%">
                                     </div>
                                 </td>
-                                <td>{{ $item->alt }}</td>
-                                <td>{{ $item->created_at->format('d-M-Y') }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('media.edit',Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>
-                                        <form action="{{ route('media.destroy',Crypt::encrypt($item->id)) }}" method="POST">
+                                        <a href="{{ route('media.multiple.edit',Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>
+                                        <form action="{{ route('media.multiple.delete',Crypt::encrypt($item->id)) }}" class="btn btn-danger">
                                             @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger rounded-0 rounded-end">Delete</button>
+                                            @method('delete')
+                                            <button class=""></button>
                                         </form>
                                     </div>
                                 </td>

@@ -7,7 +7,6 @@ use App\Models\Code;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
 
 class CodeController extends Controller
 {
@@ -17,7 +16,7 @@ class CodeController extends Controller
     public function index()
     {
         $code = Code::all();
-        return view('admin.codes.index', compact('code'));
+        return view('admin.code.index', compact('code'));
     }
 
     /**
@@ -25,7 +24,7 @@ class CodeController extends Controller
      */
     public function create()
     {
-        return view('admin.codes.create');
+        return view('admin.code.create');
     }
 
     /**
@@ -57,7 +56,7 @@ class CodeController extends Controller
     {
         $id = Crypt::decrypt($id);
         $code = Code::find($id);
-        return view('admin.codes.edit',['code'=>$code]);
+        return view('admin.code.edit',['code'=>$code]);
     }
 
     /**
@@ -89,9 +88,9 @@ class CodeController extends Controller
     public function search(Request  $request)
     {
         $search = $request->search;
-        $blogs = Code::where('title' , 'LIKE', "%$search%")
-                    ->orWhere('slug', "LIKE", "%$search%")
+        $code = Code::where('header' , 'LIKE', "%$search%")
+                    ->orWhere('footer', "LIKE", "%$search%")
                 ->get();
-        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+        return view('admin.code.search', ['code' => $code, 'search' => $search]);
     }
 }

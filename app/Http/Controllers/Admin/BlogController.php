@@ -167,6 +167,6 @@ class BlogController extends Controller
         $blogs = Blog::where('title' , 'LIKE', "%$search%")
                     ->orWhere('slug', "LIKE", "%$search%")
                 ->get();
-        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+        return view('admin.blog.search', ['blogs' => $blogs, 'search' => $search]);
     }
 }

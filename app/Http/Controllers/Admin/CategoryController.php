@@ -94,9 +94,9 @@ class CategoryController extends Controller
     public function search(Request  $request)
     {
         $search = $request->search;
-        $blogs = Category::where('title' , 'LIKE', "%$search%")
+        $category = Category::where('name' , 'LIKE', "%$search%")
                     ->orWhere('slug', "LIKE", "%$search%")
                 ->get();
-        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+        return view('admin.category.search', ['category' => $category, 'search' => $search]);
     }
 }

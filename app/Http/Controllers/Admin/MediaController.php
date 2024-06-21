@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use PhpParser\Node\Stmt\Return_;
 
 class MediaController extends Controller
 {
@@ -92,15 +93,56 @@ class MediaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // return Crypt::decrypt($id);
+        $media = Media::findOrFail(Crypt::decrypt($id));
+        if (File::exists(public_path($media->image))) {
+            File::delete(public_path($media->image));
+        }
+
+        $media->delete();
+
+        return redirect()->back()->with('error', 'Media has been successfully updated!');
     }
 
     public function search(Request  $request)
     {
         $search = $request->search;
-        $blogs = Media::where('title' , 'LIKE', "%$search%")
-                    ->orWhere('slug', "LIKE", "%$search%")
+        $media = Media::where('alt' , 'LIKE', "%$search%")
                 ->get();
-        return view('admin.ajax.search', ['blogs' => $blogs, 'search' => $search]);
+        return view('admin.media.search', ['media' => $media, 'search' => $search]);
+    }
+
+    public function view()
+    {
+        return view('admin.media.view');
+    }
+
+    public function multipleImage(Request $request)
+    {
+        $request->validate([
+            'image'     =>  'required',
+            'image.*'   =>  'required|image|max:1024',
+        ]);
+
+        $images = $request->image;
+        if( $request->has('image')){
+            foreach($images as $key => $image){
+                $imageName = $image->getClientOriginalName();
+                $imageStr = uniqid().$imageName;
+                $imagePath = '/upload/media/';
+                $image->move(public_path($imagePath),$imageName);
+
+                Media::create([
+                    'image' => $imagePath.$imageStr,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Images have been successfully uploaded');
+        }
+    }
+
+    public function dynamic()
+    {
+        $media = Media::latest('id')->get();
+        return view('admin.media.dynamic',compact('media'));
     }
 }

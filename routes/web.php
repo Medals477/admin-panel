@@ -23,6 +23,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     Route::resource('blog', BlogController::class);
     Route::post('ajax', [BlogController::class, 'setAjax']);
     Route::delete('ajax/delete', [BlogController::class, 'deleteAjax']);
+    Route::get('code/search', [CodeController::class, 'search'])->name('code.search');
     Route::resource('code', CodeController::class);
     Route::resource('media', MediaController::class);
+
+
+    // Search Bar 
+
+    Route::get('search', [CategoryController::class, 'search'])->name('category.search');
+    Route::get('search', [BlogController::class, 'search'])->name('blog.search');
+    Route::get('search', [MediaController::class, 'search'])->name('media.search');
+
+    // Media View For Multiple Image
+
+    Route::get('media/multiple/image', [MediaController::class, 'view'])->name('media.view');
+    Route::post('media/multiple/image', [MediaController::class, 'multipleImage'])->name('media.multiple.image');
 });
