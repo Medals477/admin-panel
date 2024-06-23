@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->longText('header');
-            $table->longText('footer');
+            $table->longText('header')->nullable();
+            $table->longText('footer')->nullable();
             $table->timestamps();
         });
     }
