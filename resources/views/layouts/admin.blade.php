@@ -20,6 +20,7 @@
 	<link href="{{ asset('assets/back/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('assets/back/css/icons.css') }}" rel="stylesheet">
 	<!-- Theme Style CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 	<link rel="stylesheet" href="{{ asset('assets/back/css/dark-theme.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/semi-dark.css') }}"/>
 	<link rel="stylesheet" href="{{ asset('assets/back/css/header-colors.css') }}"/>
@@ -49,6 +50,7 @@
 	{{-- <script src="{{ asset('assets/back/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script> --}}
 	<script src="{{ asset('assets/back/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('assets/back/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.4.5.1/full-all/ckeditor.js"></script>
 
 	<script src="{{ asset('assets/back/js/index.js') }}"></script>
 	<!--app JS-->
@@ -90,9 +92,27 @@
                 body: JSON.stringify(data)
             });
         }
+
     } catch (error) {
             // console.log(error)
         }
     </script>
+    <script>
+        try {
+            CKEDITOR.replace( 'description' );
+        } catch (error) {
+
+        }
+
+        function deleteConfirmation (){
+            let result = confirm('Are you sure to delete this record!');
+            if(result == true)
+                return true;
+            else{
+                return false;
+            }
+        }
+    </script>
+    
 </body>
 </html>

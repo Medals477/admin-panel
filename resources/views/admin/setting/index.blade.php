@@ -72,11 +72,6 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('setting.edit',Crypt::encrypt($item->id)) }}" class="btn btn-info">Edit</a>
-                                        <form action="{{ route('setting.destroy',Crypt::encrypt($item->id)) }}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-danger rounded-0 rounded-end">Delete</button>
-                                        </form>
                                     </div>
                                 </td>
                             </tr>

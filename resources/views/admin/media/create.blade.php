@@ -5,7 +5,7 @@
             <div class="card border border-success border-top border-bottom">
                 <div class="card-header d-flex justify-content-between">
                     <h4>Create Media</h4>
-                    <a href="{{ route('media.index') }}" class="btn btn-primary">View Media</a>
+                    <a href="{{ route('media.index') }}" class="btn btn-primary"><i class="fa-regular fa-eye"></i> View Media</a>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('media.store') }}" method="post" enctype="multipart/form-data">

@@ -61,7 +61,7 @@
                                     <form action="{{ route('category.destroy', Crypt::encrypt($item->id)) }}" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger rounded-0 rounded-end">Delete</button>
+                                        <button class="btn btn-danger rounded-0 rounded-end" onclick="return deleteConfirmation();">Delete</button>
                                     </form>
                                 </div>
                             </td>

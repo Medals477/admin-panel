@@ -38,8 +38,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
+                                        <input class="form-check-input" type="checkbox" onclick="showPassword(this)" id="flexSwitchCheckChecked">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Show Password</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-end">	<a href="#">Forgot Password ?</a>

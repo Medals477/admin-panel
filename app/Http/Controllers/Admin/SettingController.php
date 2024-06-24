@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 
 class SettingController extends Controller
 {
@@ -17,8 +17,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $setting = Setting::latest('id')->get();
-        return view('admin.setting.index',compact('setting'));
+        // 
     }
 
     /**
@@ -26,7 +25,8 @@ class SettingController extends Controller
      */
     public function create()
     {
-        return view('admin.setting.create');
+        $setting = Setting::latest('id')->first();
+        return view('admin.setting.create', compact('setting'));
     }
 
     /**
@@ -34,6 +34,12 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+        if(Setting::exists()){
+            $setting = Setting::latest('id')->first();
+        }else{
+            $setting = new Setting();
+        }
+
         $request->validate([
             'website_name'             =>   'required',
             'website_url'              =>   'required',
@@ -46,29 +52,57 @@ class SettingController extends Controller
             'description'              =>   'required',
             'meta_title'               =>   'required',
             'meta_keywords'            =>   'required',
-            'logo'                     => 'required|mimes:jpg,png,webp,svg|max:1024',
-            'favicon'                  => 'required|mimes:jpg,png,webp,svg|max:1024',
         ]);
 
         $data = $request->except(['logo', 'favicon']);
 
-    if ($request->hasFile('logo')) {
-        $logo = $request->file('logo');
-        $imageName = uniqid().'.'.$logo->getClientOriginalExtension();
-        $imagePath = '/upload/setting/logo/';
-        $logo->move(public_path($imagePath), $imageName);
-        $data['logo'] = $imagePath.$imageName;
-    }
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $imageName = uniqid().'.'.$logo->getClientOriginalExtension();
+            $imagePath = '/upload/setting/logo/';
+            $logo->move(public_path($imagePath), $imageName);
+           $logoN = $imagePath.$imageName;
+                if (File::exists(public_path($setting->logo))) {
+                    File::delete(public_path($setting->logo));
+                }
+        }else{
+            $logoN = $setting->logo;
+        }
+        
 
-    if ($request->hasFile('favicon')) {
-        $favicon = $request->file('favicon');
-        $imageName = uniqid().'.'.$favicon->getClientOriginalExtension();
-        $imagePath = '/upload/setting/favicon/';
-        $favicon->move(public_path($imagePath), $imageName);
-        $data['favicon'] = $imagePath.$imageName;
-    }
-        Setting::create($data);
-        return redirect(route('setting.index'))->with('success', "Setting Has Been Successfully Created!");
+        if ($request->hasFile('favicon')) {
+            $favicon = $request->file('favicon');
+            $imageName = uniqid().'.'.$favicon->getClientOriginalExtension();
+            $imagePath = '/upload/setting/favicon/';
+            $favicon->move(public_path($imagePath), $imageName);
+            $faviconN = $imagePath.$imageName;
+            
+            if (File::exists(public_path($setting->favicon))) {
+                File::delete(public_path($setting->favicon));
+            }
+            
+        }else{
+                $faviconN = $setting->favicon;
+
+        }
+
+        $setting->website_name      =   $request->website_name;
+        $setting->website_url       =   $request->website_url;
+        $setting->address           =   $request->address;
+        $setting->email             =   $request->email;
+        $setting->mobile            =   $request->mobile;
+        $setting->logo              =   $logoN;
+        $setting->logo_alt          =   $request->logo_alt;
+        $setting->favicon           =   $faviconN;
+        $setting->favicon_alt       =   $request->favicon_alt;
+        $setting->robots            =   $request->robots;
+        $setting->description       =   $request->description;
+        $setting->meta_title        =   $request->meta_title;
+        $setting->meta_keywords     =   $request->meta_keywords;
+        $setting->meta_description  =   $request->meta_description;
+        $setting->save();
+
+        return redirect()->back()->with('success', "Setting Has Been Successfully Created!");
 
     }
 
@@ -96,9 +130,9 @@ class SettingController extends Controller
     public function update(Request $request, string $id)
     {
         $id = Crypt::decrypt($id);
-    $setting = Setting::findOrFail($id);
+        $setting = Setting::findOrFail($id);
 
-    $validator = Validator::make($request->all(), [
+        $request->validate([
         'website_name'    => 'required',
         'website_url'     => 'required',
         'address'         => 'required',
@@ -114,47 +148,37 @@ class SettingController extends Controller
         'favicon'         => 'nullable|mimes:jpg,png,webp,svg|max:4096',
     ]);
 
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
 
     $data = $request->except(['logo', 'favicon']);
 
-    // Handle logo upload
     if ($request->hasFile('logo')) {
         $logo = $request->file('logo');
         $imageName = uniqid().'.'.$logo->getClientOriginalExtension();
         $imagePath = '/upload/setting/logo/';
         $logo->move(public_path($imagePath), $imageName);
-
-        // Delete old logo file if exists
         if (File::exists(public_path($setting->logo))) {
             File::delete(public_path($setting->logo));
         }
 
         $data['logo'] = $imagePath.$imageName;
     } else {
-        $data['logo'] = $setting->logo; // Keep existing logo if no new file uploaded
+        $data['logo'] = $setting->logo;
     }
 
-    // Handle favicon upload
     if ($request->hasFile('favicon')) {
         $favicon = $request->file('favicon');
         $imageName = uniqid().'.'.$favicon->getClientOriginalExtension();
         $imagePath = '/upload/setting/favicon/';
         $favicon->move(public_path($imagePath), $imageName);
-
-        // Delete old favicon file if exists
         if (File::exists(public_path($setting->favicon))) {
             File::delete(public_path($setting->favicon));
         }
 
         $data['favicon'] = $imagePath.$imageName;
     } else {
-        $data['favicon'] = $setting->favicon; // Keep existing favicon if no new file uploaded
+        $data['favicon'] = $setting->favicon;
     }
 
-    // Update the setting with new data
     $setting->update($data);
 
     return redirect()->back()->with('success', 'Setting has been successfully updated!');
