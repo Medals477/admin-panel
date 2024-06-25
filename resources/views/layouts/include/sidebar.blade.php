@@ -69,7 +69,6 @@
             </a>
             <ul>
                 <li> <a href="{{ route('setting.create') }}"><i class='bx bx-radio-circle'></i>Add Setting</a></li>
-                <li> <a href="{{ route('setting.index') }}"><i class='bx bx-radio-circle'></i>View Setting</a></li>
             </ul>
         </li>
     </ul>

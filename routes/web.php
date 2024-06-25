@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CodeController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\FrontendController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,7 +15,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('/home', FrontendController::class);
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     Route::resource('dashboard', AdminController::class);
     Route::get('category/search', [CategoryController::class, 'search'])->name('category.search');
