@@ -8,19 +8,17 @@
             <div class="col-12 col-md-4 col-lg-3">
 
                 <!-- Brand -->
-                <img src="{{ asset('assets/front/img/brand-dark.svg') }}" alt="..." class="footer-brand img-fluid mb-4 h-60p">
+                <img src="{{ asset($setting->logo) }}" alt="{{ $setting->logo_alt }}" class="footer-brand img-fluid mb-4 h-60p">
 
                 <!-- Text -->
-                <p class="text-gray-800 mb-4 font-size-sm-alone">
-                    329 Queensberry Street, North Melbourne VIC 3051, Australia.
-                </p>
+                <p class="text-gray-800 mb-4 font-size-sm-alone">{{ $setting->address }}</p>
 
                 <div class="mb-4">
-                    <a href="tel:1234567890" class="text-gray-800 font-size-sm-alone">123 456 7890</a>
+                    <a href="tel:{{ $setting->mobile }}" class="text-gray-800 font-size-sm-alone">{{ $setting->mobile }}</a>
                 </div>
 
                 <div class="mb-4">
-                    <a href="mailto:support@skola.com" class="text-gray-800 font-size-sm-alone">support@skola.com</a>
+                    <a href="mailto:{{ $setting->email }}" class="text-gray-800 font-size-sm-alone">{{ $setting->email }}</a>
                 </div>
 
                 <!-- Social -->
@@ -311,7 +309,7 @@
 
             <div class="col-12 my-md-5">
                 <div class="pb-5 pt-6 py-md-4 text-center text-xl-start d-flex flex-column d-md-block d-xl-flex flex-xl-row align-items-center">
-                    <p class="text-gray-800 font-size-sm-alone d-block mb-0 mb-md-2 mb-xl-0 order-1 order-md-0 px-9 px-md-0">Copyright © 2021 CreativeLayers. All Right Reserved.</p>
+                    <p class="text-gray-800 font-size-sm-alone d-block mb-0 mb-md-2 mb-xl-0 order-1 order-md-0 px-9 px-md-0">Copyright © {{ date('Y') }} {{ config('app.name') }}</p>
 
                     <div class="ms-xl-auto d-flex flex-column flex-md-row align-items-stretch align-items-md-center justify-content-center">
                         <ul class="navbar-nav flex-row flex-wrap font-size-sm-alone mb-3 mb-md-0 mx-n4 justify-content-center justify-content-lg-start order-1 order-md-0">

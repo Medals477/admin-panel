@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CodeController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\FrontendController;
 
 Route::get('/', function () {
@@ -15,8 +16,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/home', FrontendController::class);
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     Route::resource('dashboard', AdminController::class);
     Route::get('category/search', [CategoryController::class, 'search'])->name('category.search');
@@ -34,10 +33,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     Route::resource('media', MediaController::class);
     Route::get('setting/search', [SettingController::class, 'search'])->name('setting.search');
     Route::resource('setting', SettingController::class);
-
-
     // Media View For Multiple Image
-
     Route::get('media/multiple/image', [MediaController::class, 'view'])->name('media.view');
     Route::post('media/multiple/image', [MediaController::class, 'multipleImage'])->name('media.multiple.image');
 });
+
+Route::get('/', [FrontController::class ,'index'])->name('home');
+Route::get('/blog/{slug}', [FrontController::class ,'blogDetails']);
+

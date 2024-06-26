@@ -39,12 +39,11 @@
     <div id="app">
         <main class="py-4">
             <div class="wrapper">
-				{{-- @include('layouts.frontend.footer') --}}
-				@include('layouts.frontend.header')
+				@include('front.include.header')
                 <div>
                     @yield('content')
                 </div>
-				@include('layouts.frontend.footer')
+				@include('front.include.footer')
             </div>
         </main>
     </div>
