@@ -11,13 +11,20 @@ class FrontController extends Controller
     public function __construct()
     {
         $setting = Setting::firstOrFail();
+        $blogs = Blog::where('status',1)->get();
         $categories = Category::where('status',1)->latest()->take(5)->get();
-        View::share(compact('setting', 'categories'));
+        View::share(compact('setting', 'categories', 'blogs'));
     }
     public function index()
     {
         $blogs  = Blog::where('status',1)->get();
         return view('front.index', compact('blogs'));
+    }
+
+    public function category()
+    {
+        $categories = Category::where('status',1)->get();
+        return view('front.index', compact('categories'));
     }
 
     public function blogDetails($slug)
