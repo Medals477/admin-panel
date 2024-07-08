@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         $id = Auth::id();
         $user = User::find($id);
-        return view('admin.index',['user' => $user]);
+        return view('layouts.userprofile',['user' => $user]);
     }
 
     /**

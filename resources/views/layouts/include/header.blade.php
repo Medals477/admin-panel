@@ -26,12 +26,12 @@
                 <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('assets/back/images/avatars/avatar-2.png') }}" class="user-img" alt="user avatar">
                     <div class="user-info">
-                        <p class="user-name mb-0">Pauline Seitz</p>
-                        <p class="designattion mb-0">Web Designer</p>
+                        <p class="user-name mb-0">{{ $user->name }}</p>
+                        {{-- <p class="designattion mb-0">Web Designer</p> --}}
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item d-flex align-items-center" href="javascript:;"><i class="bx bx-user fs-5"></i><span>Profile</span></a>
+                    <li><a class="dropdown-item d-flex align-items-center" href="{{ route('profile.index') }}"><i class="bx bx-user fs-5"></i><span>Profile</span></a>
                     </li>
                     <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bx bx-cog fs-5"></i><span>Settings</span></a>
                     <li><a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}" onclick="event.preventDefault();document.querySelector('#logoutUser').submit()"><i class="bx bx-log-out-circle"></i><span>Logout</span></a>

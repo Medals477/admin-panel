@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CodeController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\FrontendController;
@@ -18,6 +19,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     Route::resource('dashboard', AdminController::class);
+    Route::resource('profile', ProfileController::class);
     Route::get('category/search', [CategoryController::class, 'search'])->name('category.search');
     Route::resource('category', CategoryController::class);
     Route::get('ajax/delete', [BlogController::class, 'getDelete']);
