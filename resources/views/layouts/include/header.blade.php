@@ -26,7 +26,7 @@
                 <a class="d-flex align-items-center nav-link dropdown-toggle gap-3 dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('assets/back/images/avatars/avatar-2.png') }}" class="user-img" alt="user avatar">
                     <div class="user-info">
-                        <p class="user-name mb-0">{{ $user->name }}</p>
+                        {{-- <p class="user-name mb-0">{{ $user->name }}</p> --}}
                         {{-- <p class="designattion mb-0">Web Designer</p> --}}
                     </div>
                 </a>

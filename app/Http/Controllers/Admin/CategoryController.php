@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 
@@ -15,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::with('blog')->get();
+        $category = Category::with('blog')->get();                                                                                                                                                          
         return view('admin.category.index', compact('category'));
     }
 
