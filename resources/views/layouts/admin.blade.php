@@ -100,9 +100,38 @@
     <script>
         try {
             CKEDITOR.replace( 'description' );
+
+            let addNewRowBtn = document.querySelector("#addNewRowBtn");
+            let i = 0;
+            addNewRowBtn.addEventListener('click', function(e) {
+                i++;
+                let newRow = document.querySelector("#newRow");
+                let newElement = document.createElement("div");
+                newElement.classList.add('newRow');
+                let html = `
+                        <div class="col-12 mb-3">
+                            <label for="question${i}" class="form-label">Question ${i}<span class="text-danger">*</span></label>
+                            <input type="text" name="question[]" id="question${i}" class="form-control" placeholder="Please enter question here ${i}!"/>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="answer${i}" class="form-label">Answer ${i}<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <textarea name="answer[]" id="answer${i}" class="form-control" placeholder="Please enter answer here ${i}!"></textarea>
+                                <button type="button" onclick="removeElement(this)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <div>
+                        </div>
+                        `
+                newRow.append(newElement)
+                newElement.innerHTML +=html;
+            });
+
+            function removeElement(evt) {
+                evt.closest('.newRow').remove()
+            } 
         } catch (error) {
 
         }
+        
 
         function deleteConfirmation (){
             let result = confirm('Are you sure to delete this record!');

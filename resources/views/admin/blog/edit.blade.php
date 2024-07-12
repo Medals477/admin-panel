@@ -2,7 +2,7 @@
 @section('content')
 <div class="page-wrapper">
     <div class="page-content">
-        <div class="card border-primary border-top border-bottom">
+        <div class="card border-primary border-top border-bottom mb-5">
             <div class="card-header d-flex justify-content-between">
                 <h4>Edit Blog</h4>
                 <a href="{{ route('blog.index') }}" class="btn btn-primary">View Records</a>
@@ -11,6 +11,12 @@
                 @if (Session::has('success'))
                     <div class="alert alert-success alert-dismissable fade show" role="alert">
                         <strong>{{ Session::get('success') }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+                @if (Session::has('error'))
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        <strong>{{ Session::get('error') }}</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
@@ -85,6 +91,67 @@
                         </div>
                         <div class="col-6 d-grid mx-auto">
                             <button class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card border-info border-top border-bottom">
+            <div class="card-header d-flex justify-content-between">
+                <h4>F&Q</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('blog.faqs') }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <input type="hidden" name="blog_id" value="{{ $blog->id }}"/>
+                        @foreach ($blog->faqs as $key => $item)
+                            <div class="newRow">
+                                <div class="col-12 mb-3">
+                                    <label for="question{{ $key+1 }}" class="form-label">Question {{ $key+1 }}<span class="text-danger">*</span></label>
+                                    <input type="text" name="question[]" id="question{{ $key+1 }}" class="form-control @error('question.'.$key)is-invalid @enderror" placeholder="Please enter question here!" value="{{ $item->question }}"/>
+                                @error('question.'.$key)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="answer{{ $key+1 }}" class="form-label">Answer {{ $key+1 }}<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <textarea name="answer[]" id="answer{{ $key+1 }}" class="form-control @error('answer.'.$key)is-invalid @enderror" placeholder="Please enter answer here!">{{ $item->answer }}</textarea>
+                                        <button type="button" onclick="removeElement(this)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                @error('answer.'.$key)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                        @endforeach
+                        @foreach (old('question', []) as $key => $oldQuestion)
+                            <div class="newRow">
+                                <div class="col-12 mb-3">
+                                    <label for="question{{ $key+1 }}" class="form-label">Question {{ $key+1 }}<span class="text-danger">*</span></label>
+                                    <input type="text" name="question[]" id="question{{ $key+1 }}" class="form-control @error('question.'.$key)is-invalid @enderror" placeholder="Please enter question here!" value="{{ $oldQuestion }}"/>
+                                @error('question.'.$key)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="answer{{ $key+1 }}" class="form-label">Answer {{ $key+1 }}<span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <textarea name="answer[]" id="answer{{ $key+1 }}" class="form-control @error('answer.'.$key)is-invalid @enderror" placeholder="Please enter answer here!">{{ old('answer.'.$key) }}</textarea>
+                                        <button type="button" onclick="removeElement(this)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                @error('answer.'.$key)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                                </div>
+                            </div>
+                        @endforeach
+                        <div id="newRow">
+                        </div>
+                        <div>
+                            <button class="btn btn-success text-light"><i class="fa fa-check-circle"></i>Submit</button>
+                            <button type="button" class="btn btn-info text-light" id="addNewRowBtn"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </form>

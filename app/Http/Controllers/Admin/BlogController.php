@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Blog;
+use App\Models\BlogFaq;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
@@ -73,7 +74,7 @@ class BlogController extends Controller
     public function edit(string $id)
     {
         $id = Crypt::decrypt($id);
-        $blog = Blog::find($id);
+        $blog = Blog::with('faqs')->find($id);
         $category = Category::all();
         return view('admin.blog.edit',['category' => $category , 'blog' => $blog ]);
     }
@@ -168,5 +169,30 @@ class BlogController extends Controller
                     ->orWhere('slug', "LIKE", "%$search%")
                 ->get();
         return view('admin.blog.search', ['blogs' => $blogs, 'search' => $search]);
+    }
+
+    public function blogFaqs(Request $request)
+    {
+        $request->validate([
+            'blog_id'       =>      'required',
+            'question.*'    =>      'required',
+            'answer.*'      =>      'required',
+        ]);
+
+        BlogFaq::where('blog_id', $request->blog_id)->delete();
+            // return $request;
+        if($request->question == ""){
+            return redirect()->back()->with('error', 'Please add atleast one faqs');
+        }
+        foreach($request->question as $key => $item){
+            BlogFaq::create([
+                'blog_id'       =>  $request->blog_id,
+                'question'      =>  $item,
+                'answer'        =>  $request->answer[$key]
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Faqs have been successfully created!');
+
     }
 }

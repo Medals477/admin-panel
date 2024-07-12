@@ -17,71 +17,13 @@
             <!-- SIDEBAR FILTER
             ================================================== -->
 
-            <div class="d-none">
-                <div class="border rounded px-6 px-lg-5 px-xl-6 pt-5 shadow">
-                    <h3 class="mb-5">Latest Courses</h3>
-                    <ul class="list-unstyled mb-0">
-                        <li class="media mb-6 d-flex">
-                            <a href="course-single-v5.html" class="w-100p d-block me-5">
-                                <img src="assets/img/photos/photo-1.jpg" alt="..." class="avatar-img rounded-lg h-90p w-100p">
-                            </a>
-                            <div class="media-body flex-grow-1">
-                                <a href="course-single-v5.html" class="d-block">
-                                    <h6 class="line-clamp-2 mb-3">Web Developtment and Design</h6>
-                                </a>
-                                <del class="font-size-sm me-2">$959</del>
-                                <ins class="h6 mb-0 ">$415.99</ins>
-                            </div>
-                        </li>
-
-                        <li class="media mb-6 d-flex">
-                            <a href="course-single-v5.html" class="w-100p d-block me-5">
-                                <img src="assets/img/photos/photo-2.jpg" alt="..." class="avatar-img rounded-lg h-90p w-100p">
-                            </a>
-                            <div class="media-body flex-grow-1">
-                                <a href="course-single-v5.html" class="d-block">
-                                    <h6 class="line-clamp-2 mb-3">The Complete Cyber Security Course : Hackers </h6>
-                                </a>
-                                <del class="font-size-sm me-2">$959</del>
-                                <ins class="h6 mb-0 ">$415.99</ins>
-                            </div>
-                        </li>
-
-                        <li class="media mb-6 d-flex">
-                            <a href="course-single-v5.html" class="w-100p d-block me-5">
-                                <img src="assets/img/photos/photo-14.jpg" alt="..." class="avatar-img rounded-lg h-90p w-100p">
-                            </a>
-                            <div class="media-body flex-grow-1">
-                                <a href="course-single-v5.html" class="d-block">
-                                    <h6 class="line-clamp-2 mb-3">Fashion Photography From Professional</h6>
-                                </a>
-                                <del class="font-size-sm me-2">$959</del>
-                                <ins class="h6 mb-0 ">$415.99</ins>
-                            </div>
-                        </li>
-
-                        <li class="media mb-6 d-flex">
-                            <a href="course-single-v5.html" class="w-100p d-block me-5">
-                                <img src="assets/img/photos/photo-16.jpg" alt="..." class="avatar-img rounded-lg h-90p w-100p">
-                            </a>
-                            <div class="media-body flex-grow-1">
-                                <a href="course-single-v5.html" class="d-block">
-                                    <h6 class="line-clamp-2 mb-3">The Complete Financial Analyst Course 2020</h6>
-                                </a>
-                                <del class="font-size-sm me-2">$959</del>
-                                <ins class="h6 mb-0 ">$415.99</ins>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
 
         </div>
     </div>
 
     <div class="text-center mb-5 mb-md-8">
-        <h1>Related Courses</h1>
-        <p class="font-size-lg text-capitalize">Discover your perfect program in our courses.</p>
+        <h1>Related Blogs</h1>
+        <p class="font-size-lg text-capitalize">Discover your perfect program in our Blogs.</p>
     </div>
 
     <div class="mx-n4 mb-12" data-flickity='{"pageDots": true, "prevNextButtons": false, "cellAlign": "left", "wrapAround": true, "imagesLoaded": true}'>

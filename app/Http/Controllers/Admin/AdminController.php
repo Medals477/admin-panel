@@ -14,9 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $user = User::find($id);
-        return view('admin.index',['user' => $user]);
+        return view('admin.index');
     }
 
     /**

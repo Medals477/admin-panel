@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\FrontendController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function(){
     // Media View For Multiple Image
     Route::get('media/multiple/image', [MediaController::class, 'view'])->name('media.view');
     Route::post('media/multiple/image', [MediaController::class, 'multipleImage'])->name('media.multiple.image');
+    Route::post('blog/faqs', [BlogController::class, 'blogFaqs'])->name('blog.faqs');
 });
 
 Route::get('/', [FrontController::class ,'index'])->name('home');
